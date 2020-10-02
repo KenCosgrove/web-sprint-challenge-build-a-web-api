@@ -11,4 +11,22 @@ there is no data on that route, just write some code, you'll sort it out… don'
 I need this code, but don't know where, perhaps should make some middleware, don't worry, just hack it
 
 Go code!
-*/
+*/  
+
+const express = require("express");
+const actionsRouter = require("./actions/actionsRouter");
+const projectsRouter = require("./projects/projectsRouter");
+const server = express();
+
+server.use(express.json());
+server.use("/actions", actionsRouter);
+server.use("/projects", projectsRouter);
+
+server.get("/", (req, res) => {
+  res.status(200).json({ billMurray: "IT.IS.ALIVE!"  });
+});
+
+const port = process.env.PORT || 5000
+server.listen(port, () => {
+  console.log(`API running on http://localhost:${port}`);
+})
